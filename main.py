@@ -38,7 +38,7 @@ elif category.lower() == "search":
         if not book.empty:
             author_name = book.iloc[0]['authors']
             author =  books[books['authors'].str.contains(author_name, case=False, na=False)]
-            print(author['title'] + " " + author['authors'])
+            print(author['title'] + ", " + author['authors'])
         else:
             print("No book found.")
 
@@ -48,8 +48,17 @@ elif category.lower() == "search":
         if not show.empty:
             director_name = show.iloc[0]['directors']
             director = shows[shows['directors'].str.contains(director_name, case=False, na=False)]
-            print(director['primaryTitle'] + " " + director['directors'])
+            print(director['primaryTitle'] + ", " + director['directors'])
         else:
             print("No show found.")
+    if bookorshow.lower() == "movie":
+        search = input("> ")
+        movie = movies[movies['original_title'].str.contains(search, case=False, na=False)]
+        if not movie.empty:
+            director_name = movie.iloc[0]['director']
+            director = movies[movies['director'].str.contains(director_name, case=False, na=False)]
+            print(director['original_title'] + ", " + director['director'])
+        else:
+            print("No movie found.")
 else:
     print("No Input Found, Please Try Again.")
