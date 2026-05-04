@@ -42,16 +42,14 @@ elif category.lower() == "search":
         else:
             print("No book found.")
 
-        if bookorshow.lower() == "show":
-            print("Before input")
-            search = input("> ")
-            print("After input")
-            show = shows[shows['primaryTitle'].str.fcontains(search, case=False, na=False)]
-            if not show.empty:
-                director_name = show.iloc[0]['directors']
-                director =  shows[shows['directors'].str.contains(director_name, case=False, na=False)]
-                print(show['primaryTitle'])
-            else:
-                print("No show found.")
+    if bookorshow.lower() == "show":
+        search = input("> ")
+        show = shows[shows['primaryTitle'].str.contains(search, case=False, na=False)]
+        if not show.empty:
+            director_name = show.iloc[0]['directors']
+            director = shows[shows['directors'].str.contains(director_name, case=False, na=False)]
+            print(director['primaryTitle'] + " " + director['directors'])
+        else:
+            print("No show found.")
 else:
-    print("Common dude, not funny.")
+    print("No Input Found, Please Try Again.")
