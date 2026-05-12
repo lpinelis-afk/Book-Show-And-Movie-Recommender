@@ -11,9 +11,6 @@ books = pd.read_csv('./CSV/books.csv')
 shows = pd.read_csv('./CSV/shows.csv')
 music = pd.read_csv('./CSV/music.csv')
 games = pd.read_csv('./CSV/games.csv')
-
-print("Ignore this")
-
 # normalize text so punctuation and capitalization are ignored
 def normalize_text(text):
     if not isinstance(text, str):
