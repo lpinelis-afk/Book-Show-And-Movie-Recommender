@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Search Books{% endblock %}
+
+{% block content %}
+<h1>Search Books by Author</h1>
+<form method="post">
+    <label>Author's name:</label>
+    <input type="text" name="author" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if results %}
+<h2>Results:</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Publication Date</th>
+    </tr>
+    {% for title, date in results %}
+    <tr>
+        <td>{{ title }}</td>
+        <td>{{ date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif searched %}
+<p>No book found.</p>
+{% endif %}
+
+<br><a href="/">Back</a>
+{% endblock %}

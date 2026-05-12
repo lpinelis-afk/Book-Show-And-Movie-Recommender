@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Search Board Games{% endblock %}
+
+{% block content %}
+<h1>Search Board Games</h1>
+<form method="post">
+    <label>Search by:</label>
+    <select name="search_type" required>
+        <option value="name">Name</option>
+        <option value="mechanics">Mechanics</option>
+        <option value="domains">Domains</option>
+    </select>
+    <label>Query:</label>
+    <input type="text" name="query" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if results %}
+<h2>Results:</h2>
+<table>
+    <tr>
+        {% for col in columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in results %}
+    <tr>
+        {% for val in row %}
+        <td>{{ val }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% elif searched %}
+<p>No board game found.</p>
+{% endif %}
+
+<br><a href="/">Back</a>
+{% endblock %}

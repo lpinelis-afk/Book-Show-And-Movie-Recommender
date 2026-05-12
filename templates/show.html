@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Search Shows{% endblock %}
+
+{% block content %}
+<h1>Search Shows by Director</h1>
+<form method="post">
+    <label>Director's name:</label>
+    <input type="text" name="director" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if results %}
+<h2>Results:</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Genres</th>
+    </tr>
+    {% for title, genres in results %}
+    <tr>
+        <td>{{ title }}</td>
+        <td>{{ genres }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif searched %}
+<p>No show found.</p>
+{% endif %}
+
+<br><a href="/">Back</a>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Book Recommender{% endblock %}</title>
+    <style>
+        @font-face {
+            font-family: 'Shadowed RDF';
+            src: url('/static/fonts/Shadowed RDF Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Kinesthesia';
+            src: url('/static/fonts/Kinesthesia-SemiBold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Shadowed RDF', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #000;
+            color: #fff;
+        }
+        h1, h2, th, label, strong, button {
+            font-family: 'Kinesthesia', 'Shadowed RDF', Arial, sans-serif;
+        }
+        h1 {
+            font-size: 2.8rem;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        table { border-collapse: collapse; margin: 20px 0; width: 100%; }
+        th, td { border: 1px solid #555; padding: 12px 10px; text-align: left; }
+        th { background-color: #333; color: #fff; font-size: 1.1rem; }
+        td { background-color: #111; font-size: 1rem; }
+        a { color: #66ccff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        form { margin: 20px 0; }
+        label { display: block; margin-top: 14px; font-weight: bold; font-size: 1.05rem; }
+        input, select { padding: 10px; margin-top: 5px; background: #111; border: 1px solid #444; color: #fff; font-size: 1rem; }
+        button { padding: 10px 18px; background-color: #444; color: #fff; border: 1px solid #666; cursor: pointer; font-size: 1rem; }
+        button:hover { background-color: #555; }
+    </style>
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>

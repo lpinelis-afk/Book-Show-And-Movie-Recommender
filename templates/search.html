@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Cross-Category Search{% endblock %}
+
+{% block content %}
+<h1>Cross-Category Search</h1>
+<form method="post" id="search-form">
+    <label>Category:</label>
+    <select name="category" id="category" required>
+        <option value="book">Book</option>
+        <option value="show">Show</option>
+        <option value="movie">Movie</option>
+        <option value="music">Music</option>
+        <option value="games">Games</option>
+        <option value="boardgames">Board Games</option>
+    </select>
+    <div id="query-field">
+        <label>Search term:</label>
+        <input type="text" name="query" required>
+    </div>
+    <div id="music-fields" style="display:none;">
+        <label>Track Name:</label>
+        <input type="text" name="track">
+        <label>Artist's Name:</label>
+        <input type="text" name="artist">
+    </div>
+    <button type="submit">Search</button>
+</form>
+<script>
+    const categorySelect = document.getElementById('category');
+    const queryField = document.getElementById('query-field');
+    const musicFields = document.getElementById('music-fields');
+
+    function updateFields() {
+        if (categorySelect.value === 'music') {
+            queryField.style.display = 'none';
+            musicFields.style.display = 'block';
+            musicFields.querySelector('input[name="track"]').required = true;
+            musicFields.querySelector('input[name="artist"]').required = true;
+            queryField.querySelector('input[name="query"]').required = false;
+        } else {
+            queryField.style.display = 'block';
+            musicFields.style.display = 'none';
+            musicFields.querySelector('input[name="track"]').required = false;
+            musicFields.querySelector('input[name="artist"]').required = false;
+            queryField.querySelector('input[name="query"]').required = true;
+        }
+    }
+
+    categorySelect.addEventListener('change', updateFields);
+    updateFields();
+</script>
+
+{% if results %}
+<h2>Results for {{ category_display }}:</h2>
+<table>
+    <tr>
+        {% for col in columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in results %}
+    <tr>
+        {% for val in row %}
+        <td>{{ val }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% elif searched %}
+<p>No results found.</p>
+{% endif %}
+
+<br><a href="/">Back</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Search Movies{% endblock %}
+
+{% block content %}
+<h1>Search Movies</h1>
+<form method="post">
+    <label>Choose:</label>
+    <select name="role" required>
+        <option value="director">Director</option>
+        <option value="actor">Actor</option>
+    </select>
+    <label>Name:</label>
+    <input type="text" name="creator" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if results %}
+<h2>Results:</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Genres</th>
+    </tr>
+    {% for title, genres in results %}
+    <tr>
+        <td>{{ title }}</td>
+        <td>{{ genres }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif searched %}
+<p>No movie found.</p>
+{% endif %}
+
+<br><a href="/">Back</a>
+{% endblock %}
