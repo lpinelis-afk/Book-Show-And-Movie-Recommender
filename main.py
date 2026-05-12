@@ -11,6 +11,7 @@ books = pd.read_csv('./CSV/books.csv')
 shows = pd.read_csv('./CSV/shows.csv')
 music = pd.read_csv('./CSV/music.csv')
 games = pd.read_csv('./CSV/games.csv')
+boardgames = pd.read_csv('./CSV/bgg_dataset.csv', sep=';', decimal=',')
 # normalize text so punctuation and capitalization are ignored
 def normalize_text(text):
     if not isinstance(text, str):
@@ -39,7 +40,7 @@ def contains_normalized(series, query):
     )
     return normalized_series.str.contains(re.escape(query), na=False)
 
-raw_category = input("Book/Movie/Show/Music/Games/Search> ")
+raw_category = input("Book/Movie/Show/Music/Games/Boardgames/Search> ")
 category = normalize_text(raw_category)
 
 if raw_category == "CONTROLMYMAUSPLEASE20":
@@ -114,8 +115,33 @@ elif category == "games":
     games_with_price = games[contains_normalized(games['developer'], creator)]
     print_rows(games_with_price, ['name', 'developer'])
 
+elif category == "boardgames":
+    search_type = normalize_input("Search by Name/Mechanics/Domains> ")
+    search_query = normalize_input("> ")
+    
+    if search_type == "name":
+        found_boardgames = boardgames[contains_normalized(boardgames['Name'], search_query)]
+        if not found_boardgames.empty:
+            print_rows(found_boardgames, ['Name', 'Year Published', 'Rating Average', 'Complexity Average'])
+        else:
+            print("No board game found.")
+    elif search_type == "mechanics":
+        found_boardgames = boardgames[contains_normalized(boardgames['Mechanics'], search_query)]
+        if not found_boardgames.empty:
+            print_rows(found_boardgames, ['Name', 'Mechanics', 'Rating Average'])
+        else:
+            print("No board game found with that mechanic.")
+    elif search_type == "domains":
+        found_boardgames = boardgames[contains_normalized(boardgames['Domains'], search_query)]
+        if not found_boardgames.empty:
+            print_rows(found_boardgames, ['Name', 'Domains', 'Rating Average'])
+        else:
+            print("No board game found in that domain.")
+    else:
+        print("Invalid search type.")
+
 elif category == "search": 
-    bookorshow = normalize_input("Book/Show/Movie/Music/Games> ")
+    bookorshow = normalize_input("Book/Show/Movie/Music/Games/Boardgames> ")
 
     if bookorshow == "book":
         search = normalize_input("> ")
@@ -167,6 +193,16 @@ elif category == "search":
             print_rows(games_with_developer, ['name', 'developer'])
         else:
             print("No game found.")
+
+    elif bookorshow == "boardgames":
+        search = normalize_input("> ")
+        found_boardgame = boardgames[contains_normalized(boardgames['Name'], search)]
+        if not found_boardgame.empty:
+            mechanics = found_boardgame.iloc[0]['Mechanics']
+            boardgames_with_mechanics = boardgames[contains_normalized(boardgames['Mechanics'], mechanics)]
+            print_rows(boardgames_with_mechanics, ['Name', 'Mechanics', 'Rating Average'])
+        else:
+            print("No board game found.")
 
     else:
         print("No valid search category found.")
