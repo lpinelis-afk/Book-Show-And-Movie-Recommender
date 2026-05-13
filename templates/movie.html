@@ -5,13 +5,13 @@
 {% block content %}
 <h1>Search Movies</h1>
 <form method="post">
-    <label>Choose:</label>
+    <label>Search by:</label>
     <select name="role" required>
         <option value="director">Director</option>
         <option value="actor">Actor</option>
     </select>
-    <label>Name:</label>
-    <input type="text" name="creator" required>
+    <label>Director or actor name:</label>
+    <input type="text" name="creator" placeholder="Enter director or actor name" required>
     <button type="submit">Search</button>
 </form>
 

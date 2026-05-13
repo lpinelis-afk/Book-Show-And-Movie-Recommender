@@ -15,21 +15,58 @@
         <option value="boardgames">Board Games</option>
     </select>
     <div id="query-field">
-        <label>Search term:</label>
-        <input type="text" name="query" required>
+        <label id="query-label">Enter the search term for the selected category:</label>
+        <input type="text" name="query" id="query-input" placeholder="Enter search term for selected category" required>
     </div>
     <div id="music-fields" style="display:none;">
-        <label>Track Name:</label>
-        <input type="text" name="track">
-        <label>Artist's Name:</label>
-        <input type="text" name="artist">
+        <label>Track name:</label>
+        <input type="text" name="track" placeholder="Enter track name">
+        <label>Artist's name:</label>
+        <input type="text" name="artist" placeholder="Enter artist name">
     </div>
     <button type="submit">Search</button>
 </form>
 <script>
     const categorySelect = document.getElementById('category');
     const queryField = document.getElementById('query-field');
+    const queryLabel = document.getElementById('query-label');
+    const queryInput = document.getElementById('query-input');
     const musicFields = document.getElementById('music-fields');
+
+    function updateQueryLabel() {
+        const category = categorySelect.value;
+        let labelText = 'Enter the search term for the selected category:';
+        let placeholderText = 'Enter search term for selected category';
+
+        switch (category) {
+            case 'book':
+                labelText = 'Enter a book title:';
+                placeholderText = 'Enter book title';
+                break;
+            case 'show':
+                labelText = 'Enter a show title:';
+                placeholderText = 'Enter show title';
+                break;
+            case 'movie':
+                labelText = 'Enter a movie title:';
+                placeholderText = 'Enter movie title';
+                break;
+            case 'games':
+                labelText = 'Enter a game title:';
+                placeholderText = 'Enter game title';
+                break;
+            case 'boardgames':
+                labelText = 'Enter a board game name:';
+                placeholderText = 'Enter board game name';
+                break;
+            default:
+                labelText = 'Enter the search term for the selected category:';
+                placeholderText = 'Enter search term for selected category';
+        }
+
+        queryLabel.textContent = labelText;
+        queryInput.placeholder = placeholderText;
+    }
 
     function updateFields() {
         if (categorySelect.value === 'music') {
@@ -37,14 +74,15 @@
             musicFields.style.display = 'block';
             musicFields.querySelector('input[name="track"]').required = true;
             musicFields.querySelector('input[name="artist"]').required = true;
-            queryField.querySelector('input[name="query"]').required = false;
+            queryInput.required = false;
         } else {
             queryField.style.display = 'block';
             musicFields.style.display = 'none';
             musicFields.querySelector('input[name="track"]').required = false;
             musicFields.querySelector('input[name="artist"]').required = false;
-            queryField.querySelector('input[name="query"]').required = true;
+            queryInput.required = true;
         }
+        updateQueryLabel();
     }
 
     categorySelect.addEventListener('change', updateFields);
