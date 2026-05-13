@@ -2,7 +2,6 @@ from random import randint
 import re
 import time
 import pandas as pd
-import pyautogui as pag
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
